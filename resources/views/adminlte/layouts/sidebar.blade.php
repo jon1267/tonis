@@ -41,16 +41,16 @@
                     </a>
                 </li>
 
-                {{--<li class="nav-item" id="hows">
-                    <a href="{{ route('cabinet.earn') }}" class="nav-link {{ \Illuminate\Support\Facades\Route::currentRouteName() == 'cabinet.earn' ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-coins"></i>
+                <li class="nav-item" id="hows">
+                    <a href="{{ route('admin.promocode.index') }}" class="nav-link {{ \Illuminate\Support\Facades\Route::currentRouteName() == 'admin.promocode.index' ? 'active' : '' }}">
+                        <i class="nav-icon far fa-star"></i>
                         <p>
-                            Как зарабатывать
+                            Промокоды
                         </p>
                     </a>
                 </li>
 
-                <li class="nav-item" id="materials">
+                {{--<li class="nav-item" id="materials">
                     <a href="{{ route('cabinet.material') }}" class="nav-link {{ \Illuminate\Support\Facades\Route::currentRouteName() == 'cabinet.material' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-air-freshener"></i>
                         <p>

@@ -9,35 +9,27 @@
                 <div class="col-md-8 col-sm-12 mx-auto">
                     <div class="card ">
                         <div class="card-header ">
-                            <h5 class="m-0">{{ (isset($point)) ? 'Обновление данных торговой точки' : 'Введите данные торговой точки' }}</h5>
+                            <h5 class="m-0">{{ (isset($promocode)) ? 'Обновление данных промокода' : 'Введите данные промокода' }}</h5>
                         </div>
                         <div class="card-body">
 
                             <!-- -->
-                            <form  action="{{ (isset($point)) ? route('admin.point.update', $point) : route('admin.point.store') }}" method="post">
+                            <form  action="{{ route('admin.promocode.update', $promocode) }}" method="post">
                                 @csrf
 
-                                @php
-                                    $newPointHash = \Illuminate\Support\Str::random(10);
-                                @endphp
-
-                                @if(isset($point))
+                                @if(isset($promocode))
                                     @method('PUT')
                                     {{--<input type="hidden" name="updated_by_id" value="{{ $userId }}">--}}
-                                    <input type="hidden" name="created_by_id" value="{{ $userId }}">
-                                @else
-                                    <input type="hidden" name="created_by_id" value="{{ $userId }}">
-                                    <input type="hidden" name="hash" value="{{ $newPointHash }}">
+                                    {{--<input type="hidden" name="created_by_id" value="{{ $userId }}">--}}
                                 @endif
 
 
-
                                 <div class="form-group">
-                                    <label for="name">Наименование</label>
+                                    <label for="code">Промокод</label>
                                     <input class="form-control @error('name') is-invalid @enderror" type="text"
-                                           id="name" name="name" placeholder="Введите наименование торговой точки"
-                                           value="{{(isset($point->name)) ? $point->name : old('name')}}">
-                                    @error('name')
+                                           id="code" name="code" placeholder="Введите наименование торговой точки"
+                                           value="{{(isset($promocode->code)) ? $promocode->code : old('code')}}">
+                                    @error('code')
                                     <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -46,11 +38,11 @@
 
 
                                 <div class="form-group">
-                                    <label for="address">Адрес</label>
+                                    <label for="percent">Процент скидки</label>
                                     <input class="form-control @error('address') is-invalid @enderror" type="text"
-                                           id="address" name="address" placeholder="Введите торговой точки"
-                                           value="{{(isset($point->address)) ? $point->address : old('address')}}">
-                                    @error('address')
+                                           id="percent" name="percent" placeholder="Введите торговой точки"
+                                           value="{{(isset($promocode->percent)) ? $promocode->percent : old('percent')}}">
+                                    @error('percent')
                                     <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -61,7 +53,7 @@
                                     <label for="phone">Телефон</label>
                                     <input class="form-control @error('phone') is-invalid @enderror" type="text"
                                            id="phone" name="phone" placeholder="Телефон"
-                                           value="{{(isset($point->phone)) ? $point->phone : old('phone')}}">
+                                           value="{{(isset($promocode->phone)) ? $promocode->phone : old('phone')}}">
                                     @error('phone')
                                     <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -72,7 +64,7 @@
 
                                 <div class="form-group mt-5">
                                     <button type="submit" class="btn btn-primary"> <i class="far fa-save mr-2"></i>Сохранить данные </button>
-                                    <a href="{{ route('admin.point.index') }}" class="btn btn-info ml-2"> <i class="fas fa-sign-out-alt mr-2"></i>Отмена</a>
+                                    <a href="{{ route('admin.promocode.index') }}" class="btn btn-info ml-2"> <i class="fas fa-sign-out-alt mr-2"></i>Отмена</a>
                                 </div>
                             </form>
                             <!-- -->

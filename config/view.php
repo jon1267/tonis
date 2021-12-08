@@ -18,6 +18,7 @@ return [
         app_path('Modules/Points/Core/Views'),
         app_path('Modules/Sellers/Core/Views'),
         app_path('Modules/Admins/Core/Views'),
+        app_path('Modules/Promocodes/Core/Views'),
     ],
 
     /*
