@@ -61,6 +61,23 @@
                                     @enderror
                                 </div>
 
+                                <div class="form-group col-4 pl-0">
+                                    <label for="phone">Дата создания</label>
+                                    <input class="form-control" type="text"
+                                           id="created_at" name="created_at" placeholder="Дата создания"
+                                           value="{{ $promocode->created_at }}" disabled>
+                                </div>
+
+                                @if(isset($promocode->activated_at) && !is_null($promocode->activated_at))
+                                    <div class="form-group col-4 pl-0">
+                                        <label for="phone">Дата активации</label>
+                                        <input class="form-control" type="text"
+                                               id="created_at" name="created_at" placeholder="Дата создания"
+                                               value="{{ $promocode->activated_at }}" disabled>
+                                    </div>
+                                @else
+                                    <a href="" class="btn btn-primary"> Активировать </a>
+                                @endif
 
                                 <div class="form-group mt-5">
                                     <button type="submit" class="btn btn-primary"> <i class="far fa-save mr-2"></i>Сохранить данные </button>

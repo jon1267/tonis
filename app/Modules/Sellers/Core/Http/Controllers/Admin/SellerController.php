@@ -36,7 +36,7 @@ class SellerController extends Controller
             ->with(['title'=>$title, 'sellers' => $sellers]);
     }
 
-    public function filter(Request $request)
+    public function filterSellers(Request $request)
     {
         if (request('point_id') === null) {
             return redirect()->route('admin.seller.index');

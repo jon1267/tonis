@@ -11,9 +11,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
 Auth::routes(['register' => false]);//Auth::routes();
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/p/{hash}', [App\Http\Controllers\ClientController::class, 'index'])->middleware('point.hash');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/cabinet', [PointCabinetController::class, 'cabinet'])->name('cabinet');
@@ -25,5 +25,6 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::resource('user', AdminController::class)->except(['show']); //user === admin
     Route::resource('promocode', PromocodeController::class)->except(['show','create','store']);
 
-    Route::post('filter', [SellerController::class, 'filter'])->name('seller.filter');
+    Route::post('filter-sellers', [SellerController::class, 'filterSellers'])->name('seller.filter');
+    Route::post('filter-promocodes', [PromocodeController::class, 'filterPromocodes'])->name('promocode.filter');
 });

@@ -21,7 +21,7 @@
 
                                 <div>
                                     <form  action="{{ route('admin.seller.filter') }}" method="post">
-                                        <div class="input-group input-group-sm " style="width: 210px; ">
+                                    <div class="input-group input-group-sm " style="width: 210px; ">
 
                                         @csrf
                                         <!--<input type="text" name="table_search" class="form-control float-right" placeholder="Search">-->

@@ -31,11 +31,17 @@ class AppServiceProvider extends ServiceProvider
 
         Paginator::useBootstrap();
 
-        View::composer([
+        /*View::composer([
                 'points.points_create', 'sellers.sellers_create', 'sellers.sellers_content',
+                'promocodes.promocodes_content',
             ], function ($view) {
                 $view->with('userId', auth()->user()->id)
                     ->with('points', Point::get(['id', 'name']));
-        });
+        });*/
+
+        View::composer(['points.points_create',],
+            function ($view) {$view->with('userId', auth()->user()->id); });
+        View::composer(['sellers.sellers_create', 'sellers.sellers_content', 'promocodes.promocodes_content',],
+            function ($view) {$view->with('points', Point::get(['id', 'name']));});
     }
 }

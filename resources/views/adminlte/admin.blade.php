@@ -15,6 +15,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="{{ asset('template/plugins/fontawesome-free/css/all.min.css') }}">
+    <!-- daterange picker -->
+    {{--<link rel="stylesheet" href="{{ asset('template/plugins/daterangepicker/daterangepicker.css') }}">--}}
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet" href="{{ asset('template/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
     <!-- SweetAlert2 -->
     <link rel="stylesheet" href="{{ asset('template/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
     <!-- Toastr -->
@@ -69,6 +73,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{ asset('template/plugins/jquery/jquery.min.js') }}"></script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset('template/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<!-- date-range-picker -->
+{{--<script src="{{ asset('template/plugins/daterangepicker/daterangepicker.js') }}"></script>--}}
+<!-- InputMask -->
+<script src="{{ asset('template/plugins/moment/moment.min.js') }}"></script>
+<script src="{{ asset('template/plugins/inputmask/jquery.inputmask.min.js') }}"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{{ asset('template/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
 <!-- bs-custom-file-input -->
 <script src="{{ asset('template/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
 <!-- SweetAlert2 -->
@@ -93,6 +104,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script>
     $(function () {
         bsCustomFileInput.init();
+
+        //Date picker
+        $('#reservationdate').datetimepicker({ format: 'YYYY-MM-DD' });
+        $('#reservationdate1').datetimepicker({ format: 'YYYY-MM-DD' });
     });
 </script>
 
