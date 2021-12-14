@@ -60,22 +60,6 @@
                                             </div>
                                         </div>
 
-                                        {{-- <div class="input-group-sm " style="width: 220px; ">
-                                        <!--<input type="text" name="table_search" class="form-control float-right" placeholder="Search">-->
-                                            <select name="point_id" id="point_id" class="form-control">
-                                                <option disabled selected value="" >Фильтр по точкам</option>
-                                                @foreach($points as $point)
-                                                    <option value="{{ $point->id }}">{{ $point->name }}</option>
-                                                @endforeach
-                                            </select>
-                                            <div class="input-group-append ">
-                                                <button type="submit" class="btn btn-default " title="Фильтровать">
-                                                    <i class="fas fa-search"></i>
-                                                </button>
-                                                <a href="#" class="btn btn-default " title="сбросить фильтр"><i class="fas fa-times" style="color: red;"></i></a>
-                                            </div>
-                                        </div>--}}
-
                                     </div>
                                 </form>
                             <!--</div>-->
@@ -105,25 +89,14 @@
                                         <td>
                                             @if(isset($promocode->activated_at) && !is_null($promocode->activated_at))
                                                 <span class="badge badge-pill text-white" style="background: #008000" >Активирован</span>
+                                            @elseif(!is_null($promocode->created_at) && (Carbon\Carbon::now() > Carbon\Carbon::create($promocode->created_at)->addHours(24)))
+                                                <span class="badge badge-pill text-white" style="background: #808080" >Время вышло</span>
                                             @else
                                                 <span class="badge badge-pill text-white" style="background: #808080" >Не активирован</span>
                                             @endif
+                                        </td>
                                         <td>
-
-                                            <form action="{{ route('admin.promocode.destroy', $promocode) }}" class="form-inline " method="POST" id="promocode-delete-{{$promocode->id}}">
-                                                <div class="form-group">
-                                                    {{-- ссылка независима, к форме не привязана, просто чтоб кнопы были в строку --}}
-                                                    <a href="{{ route('admin.promocode.edit', $promocode) }}" class="btn btn-primary btn-sm mr-1" title="Редактировать промокод"> <i class="fas fa-pen"></i> </a>
-
-                                                    @csrf
-                                                    @method('DELETE')
-
-                                                    <button type="submit" class="btn btn-danger btn-sm" href="#" role="button" title="Удалить промокод"
-                                                            onclick="confirmDelete('{{$promocode->id}}', 'promocode-delete-')" >
-                                                        <i class="fas fa-trash" ></i>
-                                                    </button>
-                                                </div>
-                                            </form>
+                                            <a href="{{ route('admin.promocode.show', $promocode) }}" class="btn btn-primary btn-sm ml-3" title="Просмотр промокода"> <i class="fas fa-eye"></i> </a>
                                         </td>
                                     </tr>
                                 @endforeach

@@ -23,7 +23,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::resource('point', PointController::class)->except(['show']);
     Route::resource('seller', SellerController::class)->except(['show']);
     Route::resource('user', AdminController::class)->except(['show']); //user === admin
-    Route::resource('promocode', PromocodeController::class)->except(['show','create','store']);
+    Route::resource('promocode', PromocodeController::class)->only(['show','index']);
 
     Route::post('filter-sellers', [SellerController::class, 'filterSellers'])->name('seller.filter');
     Route::post('filter-promocodes', [PromocodeController::class, 'filterPromocodes'])->name('promocode.filter');

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Promocode;
 use Illuminate\Http\Request;
 use App\Modules\Promocodes\Core\Http\Requests\AdminPromocodeUpdateRequest;
+use Carbon\Carbon;
 
 class PromocodeController extends Controller
 {
@@ -17,7 +18,7 @@ class PromocodeController extends Controller
     public function index()
     {
         return view('promocodes.promocodes_content')->with([
-            'title' => 'Редактирование промокодов',
+            'title' => 'Просмотр промокодов',
             'promocodes' => Promocode::paginate(10),
         ]);
     }
@@ -87,19 +88,25 @@ class PromocodeController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create() {}
+    /*public function create() {}*/
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store() {}
+    /*public function store() {}*/
 
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\Promocode $promocode
      */
-    public function show(Promocode $promocode) {}
+    public function show(Promocode $promocode)
+    {
+        return view('promocodes.promocodes_show')->with([
+            'title'=> 'Просмотр, активация промокода',
+            'promocode' => $promocode,
+        ]);
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -107,37 +114,37 @@ class PromocodeController extends Controller
      * @param  Promocode $promocode
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function edit(Promocode $promocode)
+    /*public function edit(Promocode $promocode)
     {
         return view('promocodes.promocodes_create')->with([
             'title'=> 'Редактирование промокода',
             'promocode' => $promocode,
         ]);
-    }
+    }*/
 
     /**
      * @param AdminPromocodeUpdateRequest $request
      * @param Promocode $promocode
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(AdminPromocodeUpdateRequest $request, Promocode $promocode)
+    /*public function update(AdminPromocodeUpdateRequest $request, Promocode $promocode)
     {
         $data = $request->except('_token', '_method');
 
         $promocode->update($data);
 
         return redirect()->route('admin.promocode.index')->with(['status' => 'Данные промокода были изменены']);
-    }
+    }*/
 
     /**
      * @param Promocode $promocode
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function destroy(Promocode $promocode)
+    /*public function destroy(Promocode $promocode)
     {
         $promocode->delete();
 
         return redirect()->route('admin.promocode.index')->with(['status' => 'Промокод успешно удален']);
-    }
+    }*/
 }
