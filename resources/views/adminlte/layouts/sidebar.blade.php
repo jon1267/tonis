@@ -50,16 +50,16 @@
                     </a>
                 </li>
 
-                {{--<li class="nav-item" id="materials">
-                    <a href="{{ route('cabinet.material') }}" class="nav-link {{ \Illuminate\Support\Facades\Route::currentRouteName() == 'cabinet.material' ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-air-freshener"></i>
+                <li class="nav-item" id="settings">
+                    <a href="{{ route('admin.setting.edit', 1 ) }}" class="nav-link {{\Illuminate\Support\Facades\Route::currentRouteName() === 'admin.setting.edit' ? 'active' : ''}}">
+                        <i class="nav-icon fas fa-cog"></i>
                         <p>
-                            Рекламные материалы
+                            Настройки
                         </p>
                     </a>
                 </li>
 
-                <li class="nav-item" id="orders">
+                {{--<li class="nav-item" id="orders">
                     <a href="{{ route('cabinet.orders') }}" class="nav-link {{\Illuminate\Support\Facades\Route::currentRouteName() == 'cabinet.orders' ? 'active' : ''}}">
                         <i class="nav-icon fas fa-gift"></i>
                         <p>

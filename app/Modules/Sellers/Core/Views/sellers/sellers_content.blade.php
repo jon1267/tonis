@@ -51,26 +51,26 @@
                             <table class="table table-hover " id="table">
                                 <tr>
                                     <th>ID</th>
+                                    <th>Фото</th>
                                     <th>Имя</th>
                                     <th>Email</th>
                                     <th>Телефон</th>
-                                    <th>Фото</th>
                                     <th>Действия</th>
                                 </tr>
 
                                 @foreach($sellers as $seller)
                                     <tr>
                                         <td>{{$seller->id}}</td>
-                                        <td>{{$seller->name}}</td>
-                                        <td>{{$seller->email}}</td>
-                                        <td>{{$seller->phone}}</td>
                                         <td>
                                             @if(!empty($seller->photo))
                                                 <img src="{{asset($seller->photo) }}" height="50"  alt="image">
                                             @endif
                                         </td>
-                                        <td>
+                                        <td>{{$seller->name}}</td>
+                                        <td>{{$seller->email}}</td>
+                                        <td>{{$seller->phone}}</td>
 
+                                        <td>
                                             <form action="{{ route('admin.seller.destroy', $seller) }}" class="form-inline " method="POST" id="seller-delete-{{$seller->id}}">
                                                 <div class="form-group">
                                                     {{-- ссылка независима, к форме не привязана, просто чтоб кнопы были в строку --}}
