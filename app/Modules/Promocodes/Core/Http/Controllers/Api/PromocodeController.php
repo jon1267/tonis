@@ -37,7 +37,11 @@ class PromocodeController extends Controller
 
         $promocode['point_address'] = $pointAddress ?? null;
         $promocode['point_sellers'] = count($sellers) ? $sellers : null;
-        //dd($promocode);
+
+        $urlWithQuery='https://parfumdeparis.biz/page/json_point?' . http_build_query($request->answers);
+        $response = json_decode(file_get_contents($urlWithQuery)); //$response - if OK, php array of stdObjects
+        $promocode['parfumes'] = (count($response) > 6) ? array_slice($response, 0, 6) : $response;
+        //dd($promocode['parfumes']);
 
         return response()->json($promocode);
     }

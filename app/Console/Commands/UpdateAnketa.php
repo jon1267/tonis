@@ -44,11 +44,11 @@ class UpdateAnketa extends Command
      */
     public function handle()
     {
-        if (!file_exists(public_path('src/upd_anketa.sql'))) {
-            $this->csvUpdate();
+        if (file_exists(public_path('src/upd_anketa.sql'))) {
+            unlink(public_path('src/upd_anketa.sql'));
         }
 
-        DB::unprepared(file_get_contents(public_path('src/upd_anketa.sql')));
+        $this->csvUpdate();
         echo 'All done.';
 
         return Command::SUCCESS;
@@ -57,7 +57,6 @@ class UpdateAnketa extends Command
     private function csvUpdate()
     {
         $data = Csv::parseCsv(public_path('src\anketa_all.csv'), ',');
-        //dd($data);
 
         $file = public_path('src\upd_anketa.sql');
 
@@ -78,7 +77,6 @@ class UpdateAnketa extends Command
             if (substr($time, -2) == ', ') {
                 $time = substr($time,0,-2);
             }
-
 
             $melan = (trim($items['melan']) === "+" ) ? 'меланхолик, ' :  '';
             $holer = (trim($items['holer']) === "+" ) ? 'холерик, ' :  '';
