@@ -25,6 +25,7 @@
                                     <th>Наименование</th>
                                     <th>Адрес</th>
                                     <th>Телефон</th>
+                                    <th>Ссылка</th>
                                     <th>QR код</th>
                                     <th>Действия</th>
                                 </tr>
@@ -35,9 +36,9 @@
                                         <td>{{$point->name}}</td>
                                         <td>{{$point->address}}</td>
                                         <td>{{$point->phone}}</td>
-                                        <td><a class="btn btn-primary btn-sm"  href="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=http://point.kleopatra0707.com/{{ $point->hash }}">QR код</a></td>
+                                        <td><a class="btn btn-primary btn-sm" target="_blank" href=" {{ route('point.front', [$point->hash]) }}">Ссылка</a></td>
+                                        <td><a class="btn btn-primary btn-sm" target="_blank" href="https://chart.googleapis.com/chart?chs=500x500&cht=qr&chl=http://point.kleopatra0707.com/{{ $point->hash }}">QR код</a></td>
                                         <td>
-
                                             <form action="{{ route('admin.point.destroy', $point) }}" class="form-inline " method="POST" id="point-delete-{{$point->id}}">
                                                 <div class="form-group">
                                                     {{-- ссылка независима, к форме не привязана, просто чтоб кнопы были в строку --}}

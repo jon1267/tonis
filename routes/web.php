@@ -12,9 +12,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes(['register' => false]);//Auth::routes();
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/p/{hash}', [App\Http\Controllers\ClientController::class, 'index'])->middleware('point.hash');
+Auth::routes(['register' => false]);
+Route::get('/p/{hash}', [App\Http\Controllers\ClientController::class, 'index'])->middleware('point.hash')->name('point.front');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/cabinet', [PointCabinetController::class, 'cabinet'])->name('cabinet');

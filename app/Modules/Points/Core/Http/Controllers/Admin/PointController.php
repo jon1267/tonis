@@ -16,7 +16,6 @@ class PointController extends Controller
      */
     public function index()
     {
-        //dd(config('view.paths'));
         return view('points.points_content')->with([
             'title' => 'Редактирование торговых точек',
             'points' => Point::paginate(10),
@@ -42,7 +41,6 @@ class PointController extends Controller
      */
     public function store(AdminPointStoreRequest $request)
     {
-        //dd($request);
         Point::create($request->except('_token'));
 
         return redirect()->route('admin.point.index')->with(['status' => 'Торговая точка добавлена']);

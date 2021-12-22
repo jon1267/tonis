@@ -10,9 +10,20 @@ use App\Models\Point;
 use App\Models\User;
 use Illuminate\Support\Str;
 use App\Modules\Promocodes\Core\Http\Requests\ApiPromocodeCreateRequest;
+use App\Modules\Promocodes\Core\Http\Requests\ApiPromocodeSmsRequest;
+use App\Services\Sms\Sms;
 
 class PromocodeController extends Controller
 {
+    /**
+     * @var Sms
+     */
+    private $sms;
+
+    public function __construct(Sms $sms)
+    {
+        $this->sms = $sms;
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -44,6 +55,35 @@ class PromocodeController extends Controller
         //dd($promocode['parfumes']);
 
         return response()->json($promocode);
+    }
+
+    /**
+     * In form request: $phone & $hash. Send SMS with promocode %
+     * if in promocodes table was found this hash
+     * @param ApiPromocodeSmsRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function promocodeSms(ApiPromocodeSmsRequest $request)
+    {
+        $phone = phone_format($request->phone);
+        $hash = $request->hash;
+        $promocode = Promocode::where('hash', $hash)->first();
+
+        if ($phone === false) {
+            return response()->json(['success'=>false, 'message'=>'invalid phone']);
+        }
+
+        if (!$promocode) {
+            return response()->json(['success'=>false, 'message'=>'promocode with such hash not found']);
+        }
+
+        $text = 'Ваша скидка - ' .$promocode->percent.'%'.' Код скидки - '. $hash;
+        $smsSend = $this->sms->sendSms($phone, $text);
+
+        return $smsSend ?
+            response()->json(['success'=>true, 'message'=>'SMS send OK']) :
+            response()->json(['success'=>false, 'message'=>'SMS sending error']);
+
     }
 
     private function randString()

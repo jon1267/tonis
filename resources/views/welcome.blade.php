@@ -63,7 +63,3 @@
         </div>
     </body>
 </html>
-<script>
-    const point_id = {{$point_id ?? 0}};
-    console.log(point_id);
-</script>

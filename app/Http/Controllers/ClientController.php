@@ -16,6 +16,6 @@ class ClientController extends Controller
     {
         $point_id = $request->get('point_id');
 
-        return view('welcome')->with('point_id', $point_id);
+        return view('client')->with('point_id', $point_id);
     }
 }
