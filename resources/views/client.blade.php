@@ -7,13 +7,12 @@
         <script>
             window.config = {!! json_encode([
                 'csrfToken' => csrf_token(),
-                'point_id'  => ($point_id ?? 0)
             ]) !!};
         </script>
     </head>
     <body class="antialiased">
         <div id="app">
-            <mobile-component></mobile-component>
+            <mobile-component :point-id="{{ $point_id ?? 0 }}"></mobile-component>
         </div>
     </body>
 {{--    <script src="{{ mix('/js/manifest.js') }}"></script>--}}

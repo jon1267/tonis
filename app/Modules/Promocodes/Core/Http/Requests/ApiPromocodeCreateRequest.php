@@ -24,7 +24,7 @@ class ApiPromocodeCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'phone' => 'required|string|max:100',
+            //'phone' => 'required|string|max:100',
             'answers' => 'required|array|min:1',
             'point_id' => 'required|exists:points,id',
             //'percent' => 'required|int',

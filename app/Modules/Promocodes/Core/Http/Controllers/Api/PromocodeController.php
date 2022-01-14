@@ -2,7 +2,6 @@
 
 namespace App\Modules\Promocodes\Core\Http\Controllers\Api;
 
-//use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Promocode;
 use App\Models\Setting;
@@ -24,6 +23,7 @@ class PromocodeController extends Controller
     {
         $this->sms = $sms;
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -52,9 +52,39 @@ class PromocodeController extends Controller
         $urlWithQuery='https://parfumdeparis.biz/page/json_point?' . http_build_query($request->answers);
         $response = json_decode(file_get_contents($urlWithQuery)); //$response - if OK, php array of stdObjects
         $promocode['parfumes'] = (count($response) > 6) ? array_slice($response, 0, 6) : $response;
-        //dd($promocode['parfumes']);
 
         return response()->json($promocode);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param ApiPromocodeCreateRequest $request
+     * @return mixed
+     */
+    public function show($hash)
+    {
+        $promocode = Promocode::where('hash', $hash)->first();
+
+        $output = [];
+        $output['phone'] = $promocode->phone;
+        $output['point_id'] = $promocode->point_id;
+        $output['answers'] = $promocode->answers;
+        $output['percent'] = $promocode->percent;
+        $output['hash'] = $promocode->hash;
+        $output['code'] = $promocode->code;
+
+        $sellers = User::where('point_id', $promocode->point_id)->get(['name', 'phone', 'photo'])->toArray();
+        $pointAddress = Point::where('id', $promocode->point_id)->first()->address;
+
+        $output['point_address'] = $pointAddress ?? null;
+        $output['point_sellers'] = count($sellers) ? $sellers : null;
+
+        $urlWithQuery='https://parfumdeparis.biz/page/json_point?' . http_build_query(json_decode($promocode->answers));
+        $response = json_decode(file_get_contents($urlWithQuery));
+        $output['parfumes'] = (count($response) > 6) ? array_slice($response, 0, 6) : $response;
+
+        return response()->json($output);
     }
 
     /**
@@ -77,12 +107,14 @@ class PromocodeController extends Controller
             return response()->json(['success'=>false, 'message'=>'promocode with such hash not found']);
         }
 
-        $text = 'Ваша скидка - ' .$promocode->percent.'%'.' Код скидки - '. $hash;
+        $promocode->update(['phone' => $phone]);
+
+        $text = 'Ваша скидка - ' .$promocode->percent.'%'.' Код скидки - '. $promocode->code;
         $smsSend = $this->sms->sendSms($phone, $text);
 
         return $smsSend ?
-            response()->json(['success'=>true, 'message'=>'SMS send OK']) :
-            response()->json(['success'=>false, 'message'=>'SMS sending error']);
+            response()->json(['success' => true, 'message'=>'SMS send OK']) :
+            response()->json(['success' => false, 'message'=>'SMS sending error']);
 
     }
 
@@ -97,7 +129,6 @@ class PromocodeController extends Controller
     private function getPercent()
     {
         $pr = Setting::all(['percent1', 'percent2', 'percent3', 'percent4']);
-        //dd($pr, $pr[0]['percent1'], $pr[0]['percent2'], $pr[0]['percent3'],);
 
         $data = [
             ['percent' => $pr[0]['percent1'], 'return' => mt_rand(10,14)],

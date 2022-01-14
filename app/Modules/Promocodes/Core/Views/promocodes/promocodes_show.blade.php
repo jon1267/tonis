@@ -72,7 +72,11 @@
                                         <input class="form-control" type="text"  value="Время активации звершилось" disabled>
                                     </div>
                                 @else
-                                    <a href="" class="btn btn-primary"> Активировать </a>
+                                    <form  action="{{ route('admin.promocode.update', $promocode) }}" method="post">
+                                        @csrf
+                                        @method('PUT')
+                                        <button type="submit" class="btn btn-primary"> Активировать </button>
+                                    </form>
                                 @endif
 
                                 <div class="form-group mt-5 ">

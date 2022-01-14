@@ -15,6 +15,13 @@ window.Vue = require('vue').default;
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
+import VueCookies from 'vue-cookies'
+Vue.use(VueCookies);
+Vue.$cookies.config('1d');
+
+import VueMask from 'v-mask'
+Vue.use(VueMask);
+
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('mobile-component', require('./components/MobileComponent.vue').default);
 

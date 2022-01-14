@@ -123,18 +123,16 @@ class PromocodeController extends Controller
     }*/
 
     /**
-     * @param AdminPromocodeUpdateRequest $request
+     * По факту это активация промокода...
      * @param Promocode $promocode
      * @return \Illuminate\Http\RedirectResponse
      */
-    /*public function update(AdminPromocodeUpdateRequest $request, Promocode $promocode)
+    public function update(Promocode $promocode)
     {
-        $data = $request->except('_token', '_method');
+        $promocode->update(['activated_at' => Carbon::now()]);
 
-        $promocode->update($data);
-
-        return redirect()->route('admin.promocode.index')->with(['status' => 'Данные промокода были изменены']);
-    }*/
+        return redirect()->route('admin.promocode.index')->with(['status' => 'Промокод успешно активирован']);
+    }
 
     /**
      * @param Promocode $promocode
